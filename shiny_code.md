@@ -25,7 +25,4 @@ example: if the path of your app is like "C:/R/app.R" and your outsourced code i
 ```
 source(file.path("examp", "example.R"),  local = TRUE)$value
 ```
-your working directory has to be set to "C:/R". then the expression above searches in the subordinate folder "examp" for the file "example.R" and adds its code in the place of the source expression. you can set your expre
-- working directory
-
-### layouts 
+your working directory has to be set to "C:/R". then the expression above searches in the subordinate folder "examp" for the file "example.R" and adds its code in the place of the source expression. 
