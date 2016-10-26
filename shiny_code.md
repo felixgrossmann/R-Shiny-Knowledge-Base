@@ -10,10 +10,12 @@ server <- function(input, output, session) {}
 ui <- fluidPage()
 shinyApp(ui = ui, server = server)
 ```
-
+***
 ## server
 
-### reactive filters
+### reactive elements
+
+#### filters
 ```
 filteredData <- reactive({
   fildata <- filter(
@@ -22,9 +24,28 @@ filteredData <- reactive({
 )}
 ```
 
-### isolated elements
-(...!!!...)
+#### data selection and grouping
+```
+groupV <- c("region", "year", "month")
+  dots <- lapply(groupV, as.symbol)
+  dataNow <- dataInc() %>%
+    group_by_(.dots=dots) %>%
+    summarize(sum_cy = as.integer(sum(CY_sales)), sum_py = as.integer(sum(PY_sales))) %>%
+    as.data.frame
+```
 
+### isolated elements
+isolated elements make sure that an shiny element, e.g. a plot, only updates when you want him to. one trigger could be pressing a button.
+```
+output$table <- renderTable({
+  input$button
+  
+  isolate({
+    dataNow <- dataInc()
+  })
+})
+```
+***
 ## user interface
 
 ### application layouts
@@ -61,7 +82,7 @@ conditionalPanel(condition = "input.cb_01",
   )
 ),
 ```
-
+***
 ## various
 
 ### outsourcing parts of your app code in various R files
