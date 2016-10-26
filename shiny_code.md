@@ -33,6 +33,35 @@ you can find all possible layout elements in the application layout guide: http:
 ### widgets
 you can find a collection of standard widgets on: http://shiny.rstudio.com/tutorial/lesson3/
 
+### freeze pane
+to create the freeze pane effect in a report so that the top menu is fixed and the dashboard beneath is scrollable, you need this: 
+```
+fluidPage(style="padding-top: 80px;",
+  absolutePanel(style = "overflow-x: auto; overflow-y: auto",
+    top = 350, left = 0, right = 0, bottom = 50,
+    fixed = FALSE,
+    # dashboard
+  ),
+  
+  absolutePanel(style="padding: 8px; border-bottom: 1px solid #CCC; background: #FFFFFF;",
+    top = 0, left = 0, right = 0, 
+    fixed = TRUE,
+    # menu
+  )
+)
+```
+
+### show and hide button with an element
+to create a show and hide checkbox including a panel depending on that checkbox, you need this:
+```
+div(checkboxInput("cb_01", label = "Show Table", value = FALSE), align="center"),
+conditionalPanel(condition = "input.cb_01",
+  wellPanel(style = "overflow-x: auto",
+    div(tableOutput("table_01"), align="center")
+  )
+),
+```
+
 ## various
 
 ### outsourcing parts of your app code in various R files
